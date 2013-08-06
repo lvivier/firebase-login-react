@@ -22,6 +22,7 @@ function User (auth, db) {
   // hijack the callback
   else if (1 === arguments.length) {
     this._auth = auth
+    this._keys = []
     var fn = auth.mLoginStateChange
     this.on('login', fn)
     this.on('logout', fn)
@@ -40,6 +41,7 @@ function User (auth, db) {
   function set (data) {
     each(data, function (key, val) {
       self[key] = val
+      self.keys.push(key)
       self.emit('change '+key, val)
       self.emit('change', key, val)
     })
@@ -47,21 +49,12 @@ function User (auth, db) {
 
   function clear () {
     // zero out values
-    each(self, function (key) {
-      // don't clear "hidden" props
-      if (key.charAt(0) == '_') return
+    each(self.keys, function (key) {
       delete(self[key])
       self.emit('change '+key, null)
       self.emit('change', key, null)
     })
-  }
-
-  // listen to provider to advertise avatar change
-  this.on('logout', emitAvatar)
-  this.on('login', emitAvatar)
-  function emitAvatar () {
-    self.emit('change avatar', self.avatar())
-    self.emit('change', 'avatar', self.avatar())
+    self.keys = []
   }
 }
 
@@ -82,12 +75,4 @@ User.prototype.login = function (service) {
 
 User.prototype.logout = function () {
   return this.ref().logout()
-}
-
-User.prototype.avatar = function () {
-  // TODO: gravatar from email for Persona and password
-  return (this.provider == 'facebook') ?
-    ('http://graph.facebook.com/'+this.id+'/picture') :
-    this.profile_image_url ||
-    this.avatar_url
 }

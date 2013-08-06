@@ -49,15 +49,22 @@ Proxies `user.ref().login(service)`.
 
 Proxies `user.ref().logout()`.
 
-### User#avatar()
+### User#on(event, fn)
 
-This getter normalizes the names of the avatar URL for Facebook, Twitter, 
-and Github. These are otherwise different for each service.
+Calls `fn` when `event` fires. See Events.
 
-### Events
+### User#once(event, fn)
+
+Calls `fn` when `event` fires, then unbinds `fn`. See Events.
+
+### User#off(event[, fn])
+
+Unbinds `fn` from `event`, or unbinds all functions bound to `event`. See Events.
+
+## Events
 
 - **login** fires after a successful call to `user.login()`
 - **logout** fires after a call to `user.logout()`, and also when a login fails
 - **error** fires when a login or logout attempt fails
 - **change** fires for each property in the user object
-- **change <prop>** ditto
+- **change \<prop\>** ditto
