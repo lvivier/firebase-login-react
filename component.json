@@ -1,0 +1,14 @@
+{
+  "name": "firebase-login-react",
+  "repo": "lvivier/firebase-login-react",
+  "description": "Use FirebaseSimpleLogin with reactive templates",
+  "version": "0.0.1",
+  "keywords": ["firebase", "reactive", "auth"],
+  "dependencies": {
+    "component/each": "*",
+    "component/emitter": "*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": ["index.js"]
+}
