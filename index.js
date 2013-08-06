@@ -12,7 +12,7 @@ var Emitter = require('emitter')
 module.exports = User
 
 function User (auth, db) {
-  if (!(this instanceof User)) return new User(auth)
+  if (!(this instanceof User)) return new User(auth, db)
   var self = this
 
   // instantiate new auth from supplied constructor
