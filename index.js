@@ -1,9 +1,13 @@
 /**
- * Multi-provider user model
+ * Dependencies.
  */
 
 var Emitter = require('emitter')
   , each = require('each')
+
+/**
+ * User for use with FirebaseSimpleLogin.
+ */
 
 module.exports = User
 
@@ -70,6 +74,14 @@ User.use = function (fn) {
 
 User.prototype.ref = function () {
   return this._auth
+}
+
+User.prototype.login = function (service) {
+  return this.ref().login(service)
+}
+
+User.prototype.logout = function () {
+  return this.ref().logout()
 }
 
 User.prototype.avatar = function () {
